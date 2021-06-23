@@ -264,3 +264,5 @@ fi
 selec-usb-drive
 
 sudo sh /opt/apps/ventoy/Ventoy2Disk.sh "${PARAMETERS}"
+
+proc-exit

@@ -2,7 +2,7 @@
 
 
 NOMBRE_PAQUETE=ventoy
-VERSION_PAQUETE=1.0.31+deepines
+VERSION_PAQUETE=1.0.46-0+deepines
 ARQUITECTURA_PAQUETE=amd64
 
 CARPETA_DE_TRABAJO="${NOMBRE_PAQUETE}_${VERSION_PAQUETE}_${ARQUITECTURA_PAQUETE}"
@@ -37,7 +37,7 @@ read $RESPUESTA
 # Anotar registro de cambios
 #mkdir -p "${CARPETA_DE_TRABAJO}/usr/share/doc/${NOMBRE_PAQUETE}"
 gunzip "${CARPETA_DE_TRABAJO}/usr/share/doc/${NOMBRE_PAQUETE}/changelog.gz"
-dedit "${CARPETA_DE_TRABAJO}/usr/share/doc/${NOMBRE_PAQUETE}/changelog"
+deepin-editor "${CARPETA_DE_TRABAJO}/usr/share/doc/${NOMBRE_PAQUETE}/changelog"
 gzip -9 "${CARPETA_DE_TRABAJO}/usr/share/doc/${NOMBRE_PAQUETE}/changelog"
 
 
@@ -119,7 +119,7 @@ read $RESPUESTA
 
 #Actualizar control
 #/deb/$CARPETA_DE_TRABAJO/DEBIAN/control
-dedit $CARPETA_DE_TRABAJO/DEBIAN/control
+deepin-editor $CARPETA_DE_TRABAJO/DEBIAN/control
 
 echo -e "\n------------------------"
 echo Generar paquete
