@@ -22,14 +22,14 @@ USB_DRIVE_SELEC=""
 PARAMETERS=""
 
 proc-exit () {
-	echo "Press Enter to finish"
+	echo "Presione Enter para terminar"
 	read OPTION
 	exit 0
 }
 
 proc-canceled () {
 
-	echo "Procedure canceled"
+	echo "Procedimiento cancelado"
 	proc-exit
 }
 
@@ -50,11 +50,11 @@ print-usb-drives-info () {
 	if [[ ${USB_DRIVES[@]} ]]; then
 		
 		echo -e "\n----------------------------"
-		echo -e "USB storage drives\n"
+		echo -e "Unidades de almacenamiento USB\n"
 		lsblk -o NAME,LABEL,SIZE,FSTYPE,PATH ${USB_DRIVES[@]}
 	else
 		echo -e "\n----------------------------"
-		echo -e "No USB storage drives available\n"
+		echo -e "No hay unidades de almacenamiento USB disponibles\n"
 	fi
 }
 
@@ -81,14 +81,14 @@ selec-usb-drive () {
 			print-usb-drives-info
 
 			echo -e "\n----------------------------"
-			echo "Select one of the USB drives"
+			echo "Seleccione una de las unidades USB"
 
 			COUNT=1
 			for i in $(print-usb-drives); do
 				echo "$COUNT) ${i}"
 				let COUNT++
 			done
-			echo -e "C) Cancel\n"
+			echo -e "C) Cancelar\n"
 
 			read OPTION
 
@@ -101,12 +101,12 @@ selec-usb-drive () {
 
 						USB_DRIVE_SELEC="${USB_DRIVES[$OPTION]}"
 						PARAMETERS="${PARAMETERS} ${USB_DRIVE_SELEC}"
-						echo "Selected unit $USB_DRIVE_SELEC"
+						echo "Unidad seleccionada $USB_DRIVE_SELEC"
 						KEEP=false
 						sleep 1
 					else
 						echo -e "\n----------------------------"
-						echo "Invalid option, press Enter to continue"
+						echo "Opción no válida, presione Enter para continuar"
 						read OPTION
 					fi
 					;;
@@ -115,7 +115,7 @@ selec-usb-drive () {
 	else
 
 		print-usb-drives-info
-		echo "Please connect a USB storage drive and try again"
+		echo "Conecte una unidad de almacenamiento USB e inténtelo de nuevo"
 		proc-exit
 	fi
 }
@@ -130,12 +130,12 @@ install-or-update () {
 		clear
 
 		echo -e "\n----------------------------"
-		echo -e "Select an option\n"
+		echo -e "Seleccione una opción\n"
 
-		echo -e "I) Install\t\tFail if disk already installed with ventoy"
-		echo -e "F) Force install\tNo matter installed or not"
-		echo -e "U) Update\t\tDoes not delete files"
-		echo -e "C) Cancel\n"
+		echo -e "I) Instalar\t\tFalla si la unidad ya tiene instalado Ventoy"
+		echo -e "F) Forzar instalación\tSe instala aún si Ventoy ya está instalado"
+		echo -e "A) Actualizar\t\tNo borra los archivos"
+		echo -e "C) Cancelar\n"
 
 		read OPTION
 
@@ -145,25 +145,25 @@ install-or-update () {
 				;;
 			I|i )
 				PARAMETERS="${PARAMETERS} -i"
-				echo "Selected «Install»"
+				echo "Seleccionado «Instalar»"
 				KEEP=false
 				sleep 1
 				;;
 			F|f )
 				PARAMETERS="${PARAMETERS} -I"
-				echo "Selected «Force install»"
+				echo "Seleccionado «Forzar instalación»"
 				KEEP=false
 				sleep 1
 			;;
-			U|u )
+			A|a )
 				PARAMETERS="${PARAMETERS} -u"
-				echo "Selected «Update»"
+				echo "Seleccionado Actualizar"
 				KEEP=false
 				sleep 1
 				;;
 			* )
 				echo -e "\n----------------------------"
-				echo "Invalid option, press Enter to continue"
+				echo "Opción no válida, presione Enter para continuar"
 				read OPTION
 				;;
 		esac
@@ -180,11 +180,11 @@ select-secure-boot () {
 		clear
 
 		echo -e "\n----------------------------"
-		echo -e "Secure Boot for UEFI\n"
+		echo -e "Secure Boot para UEFI\n"
 
-		echo "E) Enable"
-		echo "D) Disable"
-		echo -e "C) Cancel\n"
+		echo "A) Activar"
+		echo "D) Desactivar"
+		echo -e "C) Cancelar\n"
 
 		read OPTION
 
@@ -192,20 +192,20 @@ select-secure-boot () {
 			C|c )
 				proc-canceled
 				;;
-			E|e )
+			A|a )
 				PARAMETERS="${PARAMETERS} -s"
-				echo "Selected «Enable Secure Boot»"
+				echo "Seleccionado «Activar Secure Boot»"
 				KEEP=false
 				sleep 1
 				;;
 			D|d )
-				echo "Selected «Disable Secure Boot»"
+				echo "Seleccionado «Desactivar Secure Boot»"
 				KEEP=false
 				sleep 1
 			;;
 			* )
 				echo -e "\n----------------------------"
-				echo "Invalid option, press Enter to continue"
+				echo "Opción no válida, presione Enter para continuar"
 				read OPTION
 				;;
 		esac
@@ -222,11 +222,11 @@ select-partition-table () {
 		clear
 
 		echo -e "\n----------------------------"
-		echo -e "Partition table type\n"
+		echo -e "Tipo de tabla de particiones\n"
 
 		echo "G) GPT"
 		echo "M) MBR"
-		echo -e "C) Cancel\n"
+		echo -e "C) Cancelar\n"
 
 		read OPTION
 
@@ -236,18 +236,18 @@ select-partition-table () {
 				;;
 			G|g )
 				PARAMETERS="${PARAMETERS} -g"
-				echo "Selected «GPT partition table»"
+				echo "Seleccionado «Tabla de particiones GPT»"
 				KEEP=false
 				sleep 1
 				;;
 			M|m )
-				echo "Selected «MBR partition table»"
+				echo "Seleccionado «Tabla de particiones MBR»"
 				KEEP=false
 				sleep 1
 			;;
 			* )
 				echo -e "\n----------------------------"
-				echo "Invalid option, press Enter to continue"
+				echo "Opción no válida, presione Enter para continuar"
 				read OPTION
 				;;
 		esac
